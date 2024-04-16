@@ -1,0 +1,8 @@
+{
+  "Name": "Project Name",
+  "Description": "Project Description",
+  "GitHubUrl": "",
+  "DemoUrl": "https://example.com",
+  "ImageUrl": "https://example.com/image.jpg",
+  "Tags": [ "tag1", "tag2" ]
+}
