@@ -11,32 +11,36 @@ namespace SparktonianNet.Pages
 
         }
 
+        // Define a Project class to represent a project
         class Project
         {
             // Define the properties of a Project
             // Name of the project
-            public string Name { get; set; }
+            public required string Name { get; set; }
             // Description of the project
-            public string Description { get; set; }
+            public required string Description { get; set; }
             // URL to the GitHub repository
-            public string GitHubUrl { get; set; }
+            public required string GitHubUrl { get; set; }
             // URL to the demo of the project
-            public string DemoUrl { get; set; }
+            public string? DemoUrl { get; set; }
             // URL to the image of the project
-            public string ImageUrl { get; set; }
+            public required string ImageUrl { get; set; }
             // Tags associated with the project
-            public string[] Tags { get; set; }
+            public required string[] Tags { get; set; }
         }
         
+        // Function to get the HTML of all projects in the Projects folder
         public string GetProjectsHTML()
         {
 
             // HTML Template string for a project entry
             string HTMLTemplate =
-                "<div class=\"projectEntry text-dark text-decoration-none\" href=\"{3}\">" +
+                "<div class=\"projectEntry\" href=\"{3}\">" +
                 "<h3 class=\"projectTitle\">{0}</h3>" +
                 "<p class=\"projectDesc\">{1}</p>" +
                 "<ul class=\"projectTags\">{2}</ul>" +
+                "<a class=\"projectSource text-dark text-decoration-none\" href=\"{3}\">Source Code</a>" +
+                // "<a class=\"projectDemo text-dark text-decoration-none\" href=\"{3}\">Live Demo</a>" +
                 "</div> <br>";
             // HTML Template for a tag
             string HTMLTagTemplate = "<li class=\"projectTag\">{0}</li>";
@@ -68,10 +72,12 @@ namespace SparktonianNet.Pages
                     tags.Add(string.Format(HTMLTagTemplate, tag));
                 }
 
+                // Add the project to the HTML output
                 HTMLOutput += string.Format(HTMLTemplate, project.Name, project.Description, string.Join("", tags), project.GitHubUrl);
 
             }
 
+            // Return the formatted HTML output of all projects in the Projects folder
             return HTMLOutput;
         }
     }

@@ -18,13 +18,10 @@
         margin: 10px;
         display: block;
         backdrop-filter: blur(10px);
+        border-radius: 10px;
         text-align: left;
+        background-color: rgba(0, 0, 0, 0.1);
 
-    }
-
-    .projectEntry:hover {
-        background-color: rgba(0, 0, 0, 0.5);
-        transition: background-color 0.5s;
     }
 
     .projectTitle {
@@ -47,11 +44,50 @@
         padding: 3px;
         padding-top: 1px;
         padding-bottom: 2px;
-        border: 5px solid #00ffff;
-        background-color: #00ffff;
+        border: 5px;
+        background-color: rgba(0, 255, 255, 0.4);
         border-radius: 5px;
         display: inline-block;
         float: left;
+    }
+
+    .projectTag:hover {
+        background-color: rgba(0, 255, 255, 0.7);
+        transition: 0.3s;
+    }
+
+    .projectSource {
+        margin: 3px;
+        padding: 3px;
+        padding-top: 1px;
+        padding-bottom: 2px;
+        border: 5px;
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 5px;
+        display: inline-block;
+        float: right;
+    }
+
+    .projectSource:hover {
+        background-color: rgba(255, 255, 255, 0.7);
+        transition: 0.3s;
+    }
+
+    .projectDemo {
+        margin: 3px;
+        padding: 3px;
+        padding-top: 1px;
+        padding-bottom: 2px;
+        border: 5px;
+        background-color: rgba(255, 255, 255, 1);
+        border-radius: 5px;
+        display: inline-block;
+        float: right;
+    }
+
+    .projectDemo:hover {
+        background-color: rgba(255, 255, 255, 0.7);
+        transition: 0.3s;
     }
 
 </style>
