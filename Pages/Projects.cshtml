@@ -7,7 +7,7 @@
     <h1 class="display-4">Projects List</h1>
 </div>
 
-<div class="container overflow-scroll" style="width: 50%; margin: auto;">
+<div class="container" style="width: 50%; margin: auto; overflow-x: hidden; overflow-y: auto;">
     @Html.Raw(Model.GetProjectsHTML())
 </div>
 
@@ -26,15 +26,17 @@
 
     .projectTitle {
         vertical-align: top;
+        margin: 10px;
     }
 
     .projectDesc {
         vertical-align: middle;
+        margin: 10px;
     }
 
     .projectTags {
         list-style-type: none;
-        margin: 0;
+        margin: 10px;
         padding: 0;
         align-self: flex-end;
     }
@@ -49,6 +51,7 @@
         border-radius: 5px;
         display: inline-block;
         float: left;
+        user-select: none;
     }
 
     .projectTag:hover {
