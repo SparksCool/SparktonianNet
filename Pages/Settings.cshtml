@@ -1,19 +1,67 @@
 ﻿@page
 @model SparktonianNet.Pages.SettingsModel
 @{
+    var isDarkMode = false;
+    var isCustomTheme = false;
+
+    if (HttpContext.Request.Cookies["customtheme"] == "true")
+    {
+        isCustomTheme = true;
+    }
+    else if (HttpContext.Request.Cookies["darkmode"] == "true")
+    {
+        isDarkMode = true;
+    }
+
+    // Custom theme variables
+    var customcolorbg = HttpContext.Request.Cookies["customcolorbg"];
+    var customcolortext = HttpContext.Request.Cookies["customcolortext"];
+    var customcolorlink = HttpContext.Request.Cookies["customcolorlink"];
+    var customcolorlinkhover = HttpContext.Request.Cookies["customcolorlinkhover"];
+    var customcolorlinkvisited = HttpContext.Request.Cookies["customcolorlinkvisited"];
+    var customcolorlinkvisitedhover = HttpContext.Request.Cookies["customcolorlinkvisitedhover"];
+    var customcolorborder = HttpContext.Request.Cookies["customcolorborder"];
+    var customcolorfooterbg = HttpContext.Request.Cookies["customcolorfooterbg"];
+    var customcolorfootertext = HttpContext.Request.Cookies["customcolorfootertext"];
+    var customcolornavbar = HttpContext.Request.Cookies["customcolornavbar"];
+    var customcolornavbartext = HttpContext.Request.Cookies["customcolornavbartext"];
 }
 
  <div class="text-center">
      <h1 class="display-4">Settings</h1>
 </div>
 
-Dark Mode <br>
-
 <label class="switch">
     <input type="checkbox" id="darkmode">
     <span class="slider round"></span>
 </label>
 
+Dark Mode <br>
+
+<label class="switch">
+    <input type="checkbox" id="customtheme">
+    <span class="slider round"></span>
+</label>
+
+Custom Theme
+<br>
+
+<h3>Custom Theme Settings</h3>
+
+<input type="color" id="customcolorbg" value="#f0f0f0"> Background Color <br>
+<input type="color" id="customcolortext" value="#1a1a1a"> Text Color <br>
+<input type="color" id="customcolorlink" value="#1a1a1a"> Link Color <br>
+<input type="color" id="customcolorlinkhover" value="#1a1a1a"> Link Hover Color <br>
+<input type="color" id="customcolorlinkvisited" value="#1a1a1a"> Link Visited Color <br>
+<input type="color" id="customcolorlinkvisitedhover" value="#1a1a1a"> Link Visited Hover Color <br>
+<input type="color" id="customcolorborder" value="#1a1a1a"> Border Color <br>
+<input type="color" id="customcolorfooterbg" value="#f0f0f0"> Footer Background Color <br>
+<input type="color" id="customcolorfootertext" value="#1a1a1a"> Footer Text Color <br>
+<input type="color" id="customcolornavbar" value="#1a1a1a"> Navbar Color <br>
+<input type="color" id="customcolornavbartext" value="rgba(0,0,0,1)"> Navbar Text Color <br>
+
+
+<button type="button" id="confirmcustom">Submit </button>
 
 <style>
     .switch {
@@ -81,18 +129,89 @@ Dark Mode <br>
 
 <script>
     var darkmode = document.getElementById("darkmode");
+    var customtheme = document.getElementById("customtheme");
 
-    if (document.cookie == "darkmode=true") {
+    // to make C# happy
+    var True = true;
+    var False = false;
+    
+    if (@isCustomTheme) {
+        customtheme.checked = true;
+    } 
+    
+    if (@isDarkMode) {
         darkmode.checked = true;
     }
+
+    var customcolorbg = document.getElementById("customcolorbg");
+    var customcolortext = document.getElementById("customcolortext");
+    var customcolorlink = document.getElementById("customcolorlink");
+    var customcolorlinkhover = document.getElementById("customcolorlinkhover");
+    var customcolorlinkvisited = document.getElementById("customcolorlinkvisited");
+    var customcolorlinkvisitedhover = document.getElementById("customcolorlinkvisitedhover");
+    var customcolorborder = document.getElementById("customcolorborder");
+    var customcolorfooterbg = document.getElementById("customcolorfooterbg");
+    var customcolorfootertext = document.getElementById("customcolorfootertext");
+    var customcolornavbar = document.getElementById("customcolornavbar");
+    var customcolornavbartext = document.getElementById("customcolornavbartext");
+
+    // set custom theme colors to current values
+    customcolorbg.value = "@customcolorbg";
+    customcolortext.value = "@customcolortext";
+    customcolorlink.value = "@customcolorlink";
+    customcolorlinkhover.value = "@customcolorlinkhover";
+    customcolorlinkvisited.value = "@customcolorlinkvisited";
+    customcolorlinkvisitedhover.value = "@customcolorlinkvisitedhover";
+    customcolorborder.value = "@customcolorborder";
+    customcolorfooterbg.value = "@customcolorfooterbg";
+    customcolorfootertext.value = "@customcolorfootertext";
+    customcolornavbar.value = "@customcolornavbar";
+    customcolornavbartext.value = "@customcolornavbartext";
+
     
     darkmode.addEventListener("change", function () {
-        if (darkmode.checked) {
+        if (customtheme.checked) { 
+            document.cookie = "customtheme=true";
+        } else if (darkmode.checked) {
             document.cookie = "darkmode=true";
-            location.reload();
+            document.cookie = "customtheme=false";
+            setTimeout(function () { location.reload(); }, 400);
         } else {
             document.cookie = "darkmode=false";
-            location.reload();
+            document.cookie = "customtheme=false";
+            setTimeout(function () { location.reload(); }, 400);
         }
     });
+
+    customtheme.addEventListener("change", function () {
+        if (customtheme.checked) {
+            document.cookie = "customtheme=true";
+            setTimeout(function () { location.reload(); }, 400);
+        } else if (darkmode.checked) {
+            document.cookie = "darkmode=true";
+            document.cookie = "customtheme=false";
+            setTimeout(function () { location.reload(); }, 400);
+        } else {
+            document.cookie = "darkmode=false";
+            document.cookie = "customtheme=false";
+            setTimeout(function () { location.reload(); }, 400);
+        }
+    });
+
+    var confirmcustom = document.getElementById("confirmcustom");
+    confirmcustom.addEventListener("click", function () {
+        document.cookie = "customcolorbg=" + customcolorbg.value;
+        document.cookie = "customcolortext=" + customcolortext.value;
+        document.cookie = "customcolorlink=" + customcolorlink.value;
+        document.cookie = "customcolorlinkhover=" + customcolorlinkhover.value;
+        document.cookie = "customcolorlinkvisited=" + customcolorlinkvisited.value;
+        document.cookie = "customcolorlinkvisitedhover=" + customcolorlinkvisitedhover.value;
+        document.cookie = "customcolorborder=" + customcolorborder.value;
+        document.cookie = "customcolorfooterbg=" + customcolorfooterbg.value;
+        document.cookie = "customcolorfootertext=" + customcolorfootertext.value;
+        document.cookie = "customcolornavbar=" + customcolornavbar.value;
+        document.cookie = "customcolornavbartext=" + customcolornavbartext.value;
+        setTimeout(function () { location.reload(); }, 400);
+    })
+
 </script>

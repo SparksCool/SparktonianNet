@@ -18,31 +18,42 @@ a.navbar-ver {
     word-break: break-all;
     text-decoration: none;
     background-color: var(--navbar-color);
-    border-color: var(--navbar-color);
+    border-color: var(--border-color);
     color: var(--navbar-text-color);
 }
 
-a {
-  color: #0077cc;
+/* unvisited link */
+a:link {
+    color: var(--link-color);
+}
+
+/* visited link */
+a:visited {
+    color: var(--link-visited-color);
+}
+
+/* mouse over link */
+a:hover {
+    color: var(--link-hover-color);
 }
 
 .btn-primary {
     color: var(--navbar-text-color);
     background-color: var(--navbar-color);
-    border-color: var(--navbar-color);
+    border-color: var(--border-color);
 }
 
 .nav-pills .nav-pills .show > .nav-link {
     color: var(--navbar-text-color);
     background-color: var(--navbar-color);
-    border-color: var(--navbar-color);
+    border-color: var(--border-color);
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 3px solid var(--border-color) !important;
 }
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 3px solid var(--border-color) !important;
 }
 
 .box-shadow {
@@ -55,11 +66,14 @@ button.accept-policy {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    border-color: var(--border-color);
 }
 
 

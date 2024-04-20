@@ -2,12 +2,33 @@
 
 @{
     var isDarkMode = false;
-    if (Context.Request.Cookies["darkmode"] == "true")
-    {
+    var isCustomTheme = false;
+
+    if (Context.Request.Cookies["customtheme"] == "true") {
+        isCustomTheme = true;
+    } else if (Context.Request.Cookies["darkmode"] == "true") {
         isDarkMode = true;
     }
 
-    if (isDarkMode)
+    if (isCustomTheme)
+    {
+        <style>
+            :root {
+                --bg-color: @Context.Request.Cookies["customcolorbg"];
+                --text-color: @Context.Request.Cookies["customcolortext"];
+                --link-color: @Context.Request.Cookies["customcolorlink"];
+                --link-hover-color: @Context.Request.Cookies["customcolorlinkhover"];
+                --link-visited-color: @Context.Request.Cookies["customcolorlinkvisited"];
+                --link-visited-hover-color: @Context.Request.Cookies["customcolorlinkvisitedhover"];
+                --border-color: @Context.Request.Cookies["customcolorborder"];
+                --footer-bg-color: @Context.Request.Cookies["customcolorfooterbg"];
+                --footer-text-color: @Context.Request.Cookies["customcolorfootertext"];
+                --navbar-color: @Context.Request.Cookies["customcolornavbar"];
+                --navbar-text-color: @Context.Request.Cookies["customcolornavbartext"];
+            }
+        </style>
+    }
+    else if (isDarkMode)
     {
         <style>
             :root {
@@ -17,12 +38,11 @@
                 --link-hover-color: #f0f0f0;
                 --link-visited-color: #f0f0f0;
                 --link-visited-hover-color: #f0f0f0;
-                --border-color: #f0f0f0;
+                --border-color: #e5e5e5;
                 --footer-bg-color: #1a1a1a;
                 --footer-text-color: #f0f0f0;
                 --navbar-color: #1a1a1a;
                 --navbar-text-color: rgba(255,255,255,1);
-                ;
             }
 
         </style>
@@ -33,14 +53,14 @@
             :root {
                 --bg-color: #f0f0f0;
                 --text-color: #1a1a1a;
-                --link-color: #1a1a1a;
-                --link-hover-color: #1a1a1a;
-                --link-visited-color: #1a1a1a;
+                --link-color: #0000FF;
+                --link-hover-color: #1111FF;
+                --link-visited-color: #1111AA;
                 --link-visited-hover-color: #1a1a1a;
-                --border-color: #1a1a1a;
-                --footer-bg-color: #f0f0f0;
+                --border-color: #f0f0f0;
+                --footer-bg-color: #d0d0d0;
                 --footer-text-color: #1a1a1a;
-                --navbar-color: #1a1a1a;
+                --navbar-color: #f0f0f0;
                 --navbar-text-color: rgba(0,0,0,1);
                 ;
             }
@@ -60,7 +80,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: var(--navbar-color); border-color: var(--border-color);">
             <div class="container">
                 <a class="navbar-brand" style="color: var(--navbar-text-color);" asp-area="" asp-page="/Index">SparktonianNet</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -96,7 +116,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container" style="color: var(--footer-text-color)">
             &copy; 2024 - SparksCool - <a href="https://github.com/SparksCool/SparktonianNet/">Source Code</a>
         </div>
     </footer>
