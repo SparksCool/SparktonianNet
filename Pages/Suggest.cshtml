@@ -1,0 +1,21 @@
+﻿@page
+@model SparktonianNet.Pages.SuggestModel
+@{
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Suggest a Feature</h1>
+</div>
+
+<form method="get" action="SuggestionConfirmation">
+    <div class="form-group">
+        <label for="feature">Feature</label>
+        <input type="text" class="form-control" id="feature" name="feature" placeholder="Enter feature">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

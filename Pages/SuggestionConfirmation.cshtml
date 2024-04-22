@@ -1,0 +1,16 @@
+﻿@page
+@model SparktonianNet.Pages.SuggestionConfirmationModel
+@{
+    var suggestionName = Request.Query["feature"];
+    var suggestionDescription = Request.Query["description"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">Your suggestion has been sent!</h1>
+
+    <br>
+
+    <h3>Feature: @suggestionName</h3>
+    <p>Description: @suggestionDescription</p>
+
+</div>
