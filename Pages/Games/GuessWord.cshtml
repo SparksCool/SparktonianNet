@@ -1,0 +1,78 @@
+﻿@page
+@model SparktonianNet.Pages.Games.GuessWordModel
+@{
+    ViewData["Title"] = "Guess the Word";
+
+    // Read word.txt file containing the word to guess
+    string word = System.IO.File.ReadAllText("word.txt").ToLower();
+}
+
+
+<div class="text-center" id="game">
+    <h1 class="display-4">Guess the Word</h1> <br>
+    <h2>Guesses: 0/5</h2>
+    <h2>Hints Used: 0/3</h2>
+     <br>
+    <input type="text" id="guess" placeholder="Enter your guess" />
+    <button onclick="checkGuess()">Submit</button>
+    <button onclick="getHint()">Hint</button>
+
+    <br>
+
+    <h3>Hints: </h3>
+
+    <div id="hints">
+    </div>
+</div>
+
+<script>
+    var word = "@word";
+    var wordLength = word.length;
+    var guesses = 0;
+    var hints = 0;
+    var failed = false;
+
+    if (document.cookie.includes("failWord=" + word)) {
+        failed = true;
+    }
+
+    if (failed) {
+        alert("You have already failed to guess the word today!");
+    }
+
+    function checkGuess() {
+        if (failed) {
+            alert("You have already failed to guess the word today!");
+            return;
+        }
+
+        var guess = document.getElementById("guess").value.toLowerCase();
+        if (guess == word) {
+            alert("Correct! The word was " + word);
+        } else {
+            guesses++;
+            document.getElementById("guess").value = "";
+            document.getElementsByTagName("h2")[0].innerHTML = "Guesses: " + guesses + "/5";
+            if (guesses == 5) {
+                alert("You have run out of guesses! The word was " + word);
+                document.cookie = "failWord=" + word
+            }
+        }
+    }
+
+    function getHint() {
+        if (failed) {
+            alert("You have already failed to guess the word today!");
+            return;
+        }
+
+        if (hints < 3) {
+            hints++;
+            var hint = word.charAt(hints - 1);
+            document.getElementById("hints").innerHTML += hint + " ";
+            document.getElementsByTagName("h2")[1].innerHTML = "Hints Used: " + hints + "/3";
+        } else {
+            alert("You have used all your hints!");
+        }
+    }
+</script>

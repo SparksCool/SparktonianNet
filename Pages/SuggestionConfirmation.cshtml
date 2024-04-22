@@ -1,6 +1,9 @@
 ﻿@page
 @model SparktonianNet.Pages.SuggestionConfirmationModel
 @{
+
+    ViewData["Title"] = "Suggestion Confirmation";
+
     string suggestionName = Request.Query["feature"].ToString();
     string suggestionDescription = Request.Query["description"].ToString();
     string suggestionID = Guid.NewGuid().ToString();
