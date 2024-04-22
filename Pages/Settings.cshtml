@@ -62,6 +62,8 @@ Custom Theme
 
 
 <button type="button" id="confirmcustom">Submit </button>
+<button type="button" id="downloadtheme">Export </button>
+<button type="button" id="importtheme">Import </button>
 
 <style>
     .switch {
@@ -128,6 +130,7 @@ Custom Theme
 </style>
 
 <script>
+    // get dark mode and custom theme checkboxes from HTML document
     var darkmode = document.getElementById("darkmode");
     var customtheme = document.getElementById("customtheme");
 
@@ -135,6 +138,7 @@ Custom Theme
     var True = true;
     var False = false;
     
+    // set dark mode and custom theme checkboxes to current values
     if (@isCustomTheme) {
         customtheme.checked = true;
     } 
@@ -142,7 +146,8 @@ Custom Theme
     if (@isDarkMode) {
         darkmode.checked = true;
     }
-
+    
+    // get custom theme color inputs from HTML document
     var customcolorbg = document.getElementById("customcolorbg");
     var customcolortext = document.getElementById("customcolortext");
     var customcolorlink = document.getElementById("customcolorlink");
@@ -168,8 +173,9 @@ Custom Theme
     customcolornavbar.value = "@customcolornavbar";
     customcolornavbartext.value = "@customcolornavbartext";
 
-    
+    // add event listeners to dark mode checkbox
     darkmode.addEventListener("change", function () {
+        // if dark mode is checked, set dark mode cookie to true
         if (customtheme.checked) { 
             document.cookie = "customtheme=true";
         } else if (darkmode.checked) {
@@ -182,8 +188,10 @@ Custom Theme
             setTimeout(function () { location.reload(); }, 400);
         }
     });
-
+    
+    // add event listeners to custom theme checkbox
     customtheme.addEventListener("change", function () {
+        // if custom theme is checked, set custom theme cookie to true
         if (customtheme.checked) {
             document.cookie = "customtheme=true";
             setTimeout(function () { location.reload(); }, 400);
@@ -198,8 +206,11 @@ Custom Theme
         }
     });
 
+    // add event listener to submit button
     var confirmcustom = document.getElementById("confirmcustom");
     confirmcustom.addEventListener("click", function () {
+
+        // set custom theme colors to current values
         document.cookie = "customcolorbg=" + customcolorbg.value;
         document.cookie = "customcolortext=" + customcolortext.value;
         document.cookie = "customcolorlink=" + customcolorlink.value;
@@ -211,7 +222,79 @@ Custom Theme
         document.cookie = "customcolorfootertext=" + customcolorfootertext.value;
         document.cookie = "customcolornavbar=" + customcolornavbar.value;
         document.cookie = "customcolornavbartext=" + customcolornavbartext.value;
+
+        // reload page to apply changes
         setTimeout(function () { location.reload(); }, 400);
     })
+
+    var downloadtheme = document.getElementById("downloadtheme");
+    downloadtheme.addEventListener("click", function () {
+
+        // create theme object
+        var theme = {
+            customcolorbg: customcolorbg.value,
+            customcolortext: customcolortext.value,
+            customcolorlink: customcolorlink.value,
+            customcolorlinkhover: customcolorlinkhover.value,
+            customcolorlinkvisited: customcolorlinkvisited.value,
+            customcolorlinkvisitedhover: customcolorlinkvisitedhover.value,
+            customcolorborder: customcolorborder.value,
+            customcolorfooterbg: customcolorfooterbg.value,
+            customcolorfootertext: customcolorfootertext.value,
+            customcolornavbar: customcolornavbar.value,
+            customcolornavbartext: customcolornavbartext.value
+        }
+
+        // download theme as JSON
+        var themeJSON = JSON.stringify(theme);
+        var themeBlob = new Blob([themeJSON], { type: "application/json" });
+        var themeURL = URL.createObjectURL(themeBlob);
+        var themeLink = document.createElement("a");
+        themeLink.href = themeURL;
+        themeLink.download = "theme.json";
+        themeLink.click();
+    });
+
+    var importTheme = document.getElementById("importtheme");
+    importTheme.addEventListener("click", function () {
+
+        // create file input
+        var fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = ".json";
+        fileInput.style.display = "none";
+        document.body.appendChild(fileInput);
+        fileInput.click();
+
+        // add event listener to file input
+        fileInput.addEventListener("change", function () {
+
+            // read file
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.readAsText(file);
+
+            reader.onload = function () {
+
+                // parse theme object
+                var theme = JSON.parse(reader.result);
+
+                // set custom theme colors to theme object values
+                customcolorbg.value = theme.customcolorbg;
+                customcolortext.value = theme.customcolortext;
+                customcolorlink.value = theme.customcolorlink;
+                customcolorlinkhover.value = theme.customcolorlinkhover;
+                customcolorlinkvisited.value = theme.customcolorlinkvisited;
+                customcolorlinkvisitedhover.value = theme.customcolorlinkvisitedhover;
+                customcolorborder.value = theme.customcolorborder;
+                customcolorfooterbg.value = theme.customcolorfooterbg;
+                customcolorfootertext.value = theme.customcolorfootertext;
+                customcolornavbar.value = theme.customcolornavbar;
+                customcolornavbartext.value = theme.customcolornavbartext;
+                
+                confirmcustom.click();
+            };
+        });
+    });
 
 </script>
