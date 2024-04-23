@@ -32,6 +32,8 @@
     var hints = 0;
     var failed = false;
 
+    document.getElementsByTagName("h2")[1].innerHTML = "Hints Used: " + hints + "/" + word.length
+
     if (document.cookie.includes("failWord=" + word)) {
         failed = true;
     }
@@ -55,7 +57,7 @@
             document.getElementsByTagName("h2")[0].innerHTML = "Guesses: " + guesses + "/5";
             if (guesses == 5) {
                 alert("You have run out of guesses! The word was " + word);
-                document.cookie = "failWord=" + word
+                document.cookie = "failWord=" + word;
             }
         }
     }
@@ -66,11 +68,11 @@
             return;
         }
 
-        if (hints < 3) {
+        if (hints < word.length) {
             hints++;
             var hint = word.charAt(hints - 1);
             document.getElementById("hints").innerHTML += hint + " ";
-            document.getElementsByTagName("h2")[1].innerHTML = "Hints Used: " + hints + "/3";
+            document.getElementsByTagName("h2")[1].innerHTML = "Hints Used: " + hints + "/" + word.length
         } else {
             alert("You have used all your hints!");
         }
